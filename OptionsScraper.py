@@ -152,6 +152,7 @@ def ScrapeData(ticker,interval):
 
     # Iterate through scraping process for each expiry date
     for expiry_index in range(len(expiry_timestamps)):
+        time.sleep(2)
         print("Getting data for %s" % (expiry_dates[expiry_index]))
 
         itm_calls = []
@@ -211,28 +212,38 @@ def main():
     """
 
     full_options_list = []
+    call_count = 0
+    short_limit = 8
+    long_limit = 4 * short_limit
 
     # Pull watchlists and sort by interval
     [weekly_tickers,monthly_tickers] = GetTickers()
 
     # Iterate through weekly options watchlist
     for symbol in weekly_tickers:
+        call_count += 1
         symbol_string =''.join([str(elem) for elem in symbol])
         print("Getting data for %s..." % (symbol_string))
-        symbol_options = ScrapeData(symbol_string,"weekly")
         try:
+            symbol_options = ScrapeData(symbol_string,"weekly")
             for option in symbol_options:
                 full_options_list.append(option)
         except:
             print("Bad URL, skipping ticker.")
-        time.sleep(0.5)
+        if call_count%short_limit == 0:
+            print(">>> Short call rest")
+            time.sleep(60)
+        if call_count%long_limit == 0:
+            print(">>>>> Long call rest")
+            time.sleep(240)
+
 
     # Iterate through monthly options watchlist
     for symbol in monthly_tickers:
         symbol_string =''.join([str(elem) for elem in symbol])
         print("Getting data for %s..." % (symbol_string))
-        symbol_options = ScrapeData(symbol_string,"monthly")
         try:
+            symbol_options = ScrapeData(symbol_string,"monthly")
             for option in symbol_options:
                 full_options_list.append(option)
         except:
