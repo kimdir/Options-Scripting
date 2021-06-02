@@ -19,7 +19,7 @@ weeklies_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Weekli
 monthlies_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Monthlies.csv"
 output_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Options Data.csv"
 
-option_range = 4
+option_range = 2
 expiry_range = 2
 
 def GetTickers():
@@ -223,7 +223,7 @@ def main():
     for symbol in weekly_tickers:
         call_count += 1
         symbol_string =''.join([str(elem) for elem in symbol])
-        print("Getting data for %s..." % (symbol_string))
+        print("Getting data for %s... Symbol %s/%s" % (symbol_string,call_count,len(weekly_tickers)))
         try:
             symbol_options = ScrapeData(symbol_string,"weekly")
             for option in symbol_options:
