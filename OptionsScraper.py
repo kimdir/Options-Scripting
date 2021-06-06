@@ -230,6 +230,8 @@ def main():
 
     # Iterate through weekly options watchlist
     for symbol in weekly_tickers:
+        if symbol in bad_tickers:
+            continue
         call_count += 1
         symbol_string =''.join([str(elem) for elem in symbol])
         print("Getting data for %s... Symbol %s/%s" % (symbol_string,call_count,len(weekly_tickers)))
@@ -239,6 +241,8 @@ def main():
                 full_options_list.append(option)
         except:
             print("Bad URL, skipping ticker.")
+            bad_tickers.append(symbol)
+            call_count -= 1
         if call_count%short_limit == 0:
             print(">>> Short call rest")
             time.sleep(60)
@@ -257,6 +261,8 @@ def main():
                 full_options_list.append(option)
         except:
             print("Bad URL, skipping ticker.")
+            bad_tickers.append(symbol)
+            call_count -= 1
         time.sleep(0.5)
 
     # Output results to .csv file
