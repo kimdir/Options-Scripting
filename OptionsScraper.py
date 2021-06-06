@@ -20,7 +20,8 @@ monthlies_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Month
 bads_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Bat Tickers.csv"
 output_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Options Data.csv"
 
-option_range = 2
+itm_option_range = 3
+otm_option_range = 1
 expiry_range = 2
 
 def GetTickers():
@@ -129,9 +130,10 @@ def GetOptionInfo(option,ticker,expiry_date):
 
 def SelectOptions(itm_options,otm_options,option_range):
     selected_options = []
-    for i in range(option_range):
+    for i in range(itm_option_range):
         selected_options.append(itm_options[0].pop(-1))
         selected_options.append(itm_options[1].pop(0))
+    for i in range(otm_option_range):
         selected_options.append(otm_options[0].pop(0))
         selected_options.append(otm_options[1].pop(-1))
 
