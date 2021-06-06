@@ -17,6 +17,7 @@ from dateutil.relativedelta import relativedelta
 
 weeklies_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Weeklies.csv"
 monthlies_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Monthlies.csv"
+bads_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Bat Tickers.csv"
 output_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Options Data.csv"
 
 option_range = 2
@@ -25,6 +26,7 @@ expiry_range = 2
 def GetTickers():
     weekly_tickers = []
     monthly_tickers = []
+    bad_tickers = []
 
     # Get weekly tickers from file
     with open(weeklies_path) as weekly_file:
@@ -39,6 +41,13 @@ def GetTickers():
         next(tickReader)
         for row in tickReader:
             monthly_tickers.append(row)
+
+    # Get bad tickers from file
+    with open(bads_path) as bads_file:
+        tickReader = csv.reader(bads_file)
+        next(tickReader)
+        for row in tickReader:
+            bad_tickers.append(row)
 
     return [weekly_tickers,monthly_tickers]
 
