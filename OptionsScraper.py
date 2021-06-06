@@ -153,6 +153,25 @@ def WriteOptionInfo(option_list):
         for data in option_list:
             writer.writerow(data)
 
+    return
+
+def UpdateBadList(bad_tickers):
+    """
+    Updates the list of bad tickers for the next cycle of scraping or for later
+    analysis.
+    """
+
+    if os.path.exists(bads_path):
+        os.remove(bads_path)
+
+    with open(bads_path,'w',newline='') as bads_file:
+        writer = csv.writer(bads_file)
+        writer.writerow(['Tickers'])
+        for data in bad_tickers:
+            writer.writerow(data)
+
+    return
+
 def ScrapeData(ticker,interval):
 
     # Define expiry dates to examine
@@ -267,6 +286,7 @@ def main():
 
     # Output results to .csv file
     WriteOptionInfo(full_options_list)
+    UpdateBadList(bad_tickers)
 
 if __name__ == "__main__":
     main()
