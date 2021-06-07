@@ -128,7 +128,7 @@ def GetOptionInfo(option,ticker,expiry_date):
                     'Expiry':expiry_date}
     return option_info
 
-def SelectOptions(itm_options,otm_options,option_range):
+def SelectOptions(itm_options,otm_options,itm_option_range,otm_option_range):
     selected_options = []
     for i in range(itm_option_range):
         selected_options.append(itm_options[0].pop(-1))
@@ -192,8 +192,6 @@ def ScrapeData(ticker,interval):
         itm_options = []
         otm_options = []
 
-
-
         # Pull raw HTML data from Yahoo Finance
         data_url = GetURL(ticker,expiry_timestamps[expiry_index])
         data_html = requests.get(data_url).content
@@ -227,7 +225,7 @@ def ScrapeData(ticker,interval):
         # Isolate selected range of options
         itm_options = [itm_calls,itm_puts]
         otm_options = [otm_calls,otm_puts]
-        selected_option_data = SelectOptions(itm_options,otm_options,option_range)
+        selected_option_data = SelectOptions(itm_options,otm_options,itm_option_range,otm_option_range)
 
         # Convert information to .csv output format
         for option in selected_option_data:
