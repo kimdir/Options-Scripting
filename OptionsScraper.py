@@ -261,7 +261,7 @@ def main():
         except:
             print("Bad URL, skipping ticker.")
             bad_tickers.append(symbol)
-            call_count -= 1
+            #call_count -= 1
         if call_count%short_limit == 0:
             print(">>> Short call rest")
             time.sleep(60)
