@@ -17,7 +17,7 @@ from dateutil.relativedelta import relativedelta
 
 weeklies_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Weeklies.csv"
 monthlies_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Monthlies.csv"
-bads_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Bat Tickers.csv"
+bads_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Bad Tickers.csv"
 output_path = "C:/Users/Kiaru/OneDrive/Financial Tracking/Options Files/Options Data.csv"
 
 itm_option_range = 3
@@ -50,7 +50,7 @@ def GetTickers():
         for row in tickReader:
             bad_tickers.append(row)
 
-    return [weekly_tickers,monthly_tickers]
+    return [weekly_tickers,monthly_tickers,bad_tickers]
 
 def GetExpiryDates(count=expiry_range,interval="weekly",weekday="Friday"):
     """
@@ -247,7 +247,7 @@ def main():
     long_limit = 4 * short_limit
 
     # Pull watchlists and sort by interval
-    [weekly_tickers,monthly_tickers] = GetTickers()
+    [weekly_tickers,monthly_tickers,bad_tickers] = GetTickers()
 
     # Iterate through weekly options watchlist
     for symbol in weekly_tickers:
